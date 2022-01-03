@@ -1,6 +1,7 @@
 const regForm = document.querySelector('#regForm');
 const email = document.querySelector('#email');
-
+// const outPut = document.querySelector('#outPut');
+const usersList = [];
 
 let boolean = 'false';
 
@@ -50,8 +51,14 @@ regForm.addEventListener('submit', e => {
       email: e.currentTarget.email.value,
     }
     console.log(user);
-  }
+    usersList.push(user);
+    console.log(usersList);
+    }
 })
+
+
+
+
 
 email.addEventListener('keyup', () => {
     validateEmail(email)
@@ -63,5 +70,4 @@ lastName.addEventListener('keyup', () => {
     validateText('#lastName')
   })
 
-
-
+  
