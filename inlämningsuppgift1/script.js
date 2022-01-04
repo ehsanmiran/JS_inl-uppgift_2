@@ -4,7 +4,7 @@ const outputDiv = document.querySelector('#listToAdd');
 const usersListArray = [];
 
 let boolean = 'false';
-let i = 0;
+
 
 
 
@@ -63,6 +63,7 @@ regForm.addEventListener('submit', e => {
   }
 
   const listOfUsers = () => {
+    let i = 0;
     outputDiv.innerHTML = '';
     usersListArray.forEach(user => {
       const userInUse = usersListArray[i];
@@ -78,10 +79,10 @@ regForm.addEventListener('submit', e => {
         </div>
         `;
       
+      i++;
     })
   }
   listOfUsers();
-  i++;
 })
 
 
