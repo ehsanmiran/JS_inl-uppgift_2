@@ -3,8 +3,9 @@ const email = document.querySelector('#email');
 const outputDiv = document.querySelector('#listToAdd');
 const usersListArray = [];
 
-let boolean = 'false';
-
+var boolean1 = 'false';
+var boolean2 = 'false';
+var boolean3 = 'false';
 
 
 
@@ -20,7 +21,12 @@ const validateText = (id) => {
   else {
     input.classList.remove('is-invalid');
     input.classList.add('is-valid');
-    boolean = 'true';
+    // boolean1 = 'true';
+    if(id === '#firstName') {
+      boolean1 = 'true'
+    }else{
+      boolean2 = 'true'
+    }
   }
 }
 
@@ -30,13 +36,15 @@ const validateEmail = (emailInput) => {
   if(regEx.test(emailInput.value)) {
     emailInput.classList.remove('is-invalid');
     emailInput.classList.add('is-valid');
-    boolean = 'true';
+    boolean3 = 'true';
+    
   }
   else {
     emailInput.classList.remove('is-valid');
     emailInput.classList.add('is-invalid');
     emailInput.focus();
-    boolean = 'false';
+    boolean3 = 'false';
+    
   }
 }
 
@@ -58,11 +66,12 @@ lastName.addEventListener('keyup', () => {
 regForm.addEventListener('submit', e => {
   e.preventDefault();
   
+  
   validateText('#firstName');
   validateText('#lastName');
   validateEmail(email);
   
-  if(boolean === 'true') {
+  if(boolean1 === 'true' && boolean2 === 'true' && boolean3 === 'true') {
     let user = {
       id: (new Date()).getTime(),
       firstName: e.currentTarget.firstName.value,
@@ -72,33 +81,34 @@ regForm.addEventListener('submit', e => {
     console.log(user);
     usersListArray.push(user);
     console.log(usersListArray);
-  }
   
-  const listOfUsers = () => {
-    let i = 0;
-    outputDiv.innerHTML = '';
-    usersListArray.forEach(user => {
-      const userInUse = usersListArray[i];
-      outputDiv.innerHTML += `
-      <div id="${listToAdd.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
-      <div>  
-      <p class="m-0 h5">${userInUse.firstName} ${userInUse.lastName}</p>
-      <p class="m-0 h6">${userInUse.email}</p>
-      </div>
-      <div>
-      <button type="button" class="btn btn-info btn-sm px-3">EDIT</button>
-      <button type="button" class="btn btn-danger btn-sm">DELETE</button>
-      </div>
-      `;
-      
-      i++;
-    })
-  }
-  listOfUsers();
+  
+    function listOfUsers() {
+      let i = 0;
+      outputDiv.innerHTML = '';
+      usersListArray.forEach(user => {
+        const userInUse = usersListArray[i];
+        outputDiv.innerHTML += `
+        <div id="${listToAdd.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
+        <div>  
+        <p class="m-0 h5">${userInUse.firstName} ${userInUse.lastName}</p>
+        <p class="m-0">${userInUse.email}</p>
+        </div>
+        <div>
+        <button type="button" class="btn btn-info btn-sm px-3">EDIT</button>
+        <button type="button" class="btn btn-danger btn-sm">DELETE</button>
+        </div>
+        `;
 
-  
-  document.getElementById("regForm").reset(); 
-  
+        i++;
+      })
+    }
+    listOfUsers();
+    document.getElementById("regForm").reset();
+    boolean1 = 'false';
+    boolean2 = 'false';
+  }
 
 })
+
 
