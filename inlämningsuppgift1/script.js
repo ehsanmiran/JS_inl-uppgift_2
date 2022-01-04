@@ -26,7 +26,7 @@ const validateText = (id) => {
 
 const validateEmail = (emailInput) => {
   let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
+  
   if(regEx.test(emailInput.value)) {
     emailInput.classList.remove('is-invalid');
     emailInput.classList.add('is-valid');
@@ -39,6 +39,18 @@ const validateEmail = (emailInput) => {
     boolean = 'false';
   }
 }
+
+
+// ------ Information text lines under fields ------
+email.addEventListener('keyup', () => {
+    validateEmail(email)
+  })
+firstName.addEventListener('keyup', () => {
+    validateText('#firstName')
+  })
+lastName.addEventListener('keyup', () => {
+    validateText('#lastName')
+  })
 
 
 
@@ -61,42 +73,32 @@ regForm.addEventListener('submit', e => {
     usersListArray.push(user);
     console.log(usersListArray);
   }
-
+  
   const listOfUsers = () => {
     let i = 0;
     outputDiv.innerHTML = '';
     usersListArray.forEach(user => {
       const userInUse = usersListArray[i];
-        outputDiv.innerHTML += `
-        <div id="${listToAdd.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
-        <div>  
-        <p class="m-0 h5">${userInUse.firstName} ${userInUse.lastName}</p>
-          <p class="m-0 h6">${userInUse.email}</p>
-        </div>
-        <div>
-        <button type="button" class="btn btn-info btn-sm px-3">EDIT</button>
-          <button type="button" class="btn btn-danger btn-sm">DELETE</button>
-        </div>
-        `;
+      outputDiv.innerHTML += `
+      <div id="${listToAdd.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
+      <div>  
+      <p class="m-0 h5">${userInUse.firstName} ${userInUse.lastName}</p>
+      <p class="m-0 h6">${userInUse.email}</p>
+      </div>
+      <div>
+      <button type="button" class="btn btn-info btn-sm px-3">EDIT</button>
+      <button type="button" class="btn btn-danger btn-sm">DELETE</button>
+      </div>
+      `;
       
       i++;
     })
   }
   listOfUsers();
-})
-
-
-
-
-// ------ Information text lines under fields ------
-email.addEventListener('keyup', () => {
-    validateEmail(email)
-  })
-firstName.addEventListener('keyup', () => {
-    validateText('#firstName')
-  })
-lastName.addEventListener('keyup', () => {
-    validateText('#lastName')
-  })
 
   
+  document.getElementById("regForm").reset(); 
+  
+
+})
+
