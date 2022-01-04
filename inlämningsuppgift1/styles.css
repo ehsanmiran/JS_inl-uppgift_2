@@ -13,8 +13,6 @@ html {
 
 .container {
   padding: 10px 50px;
-  background-image: linear-gradient(#dfdfdf00, #ffd484);
-  border-radius: 25px;
 }
 
 .align-center {

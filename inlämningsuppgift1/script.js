@@ -1,10 +1,14 @@
 const regForm = document.querySelector('#regForm');
 const email = document.querySelector('#email');
-// const outPut = document.querySelector('#outPut');
-const usersList = [];
+const outputDiv = document.querySelector('#listToAdd');
+const usersListArray = [];
 
 let boolean = 'false';
+let i = 0;
 
+
+
+// ------ Validations -------
 const validateText = (id) => {
   let input = document.querySelector(id);
 
@@ -36,6 +40,9 @@ const validateEmail = (emailInput) => {
   }
 }
 
+
+
+// ------ Creating Data Array for each User ------
 regForm.addEventListener('submit', e => {
   e.preventDefault();
   
@@ -51,15 +58,36 @@ regForm.addEventListener('submit', e => {
       email: e.currentTarget.email.value,
     }
     console.log(user);
-    usersList.push(user);
-    console.log(usersList);
-    }
+    usersListArray.push(user);
+    console.log(usersListArray);
+  }
+
+  const listOfUsers = () => {
+    outputDiv.innerHTML = '';
+    usersListArray.forEach(user => {
+      const userInUse = usersListArray[i];
+        outputDiv.innerHTML += `
+        <div id="${listToAdd.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
+        <div>  
+        <p class="m-0 h5">${userInUse.firstName} ${userInUse.lastName}</p>
+          <p class="m-0 h6">${userInUse.email}</p>
+        </div>
+        <div>
+        <button type="button" class="btn btn-info btn-sm px-3">EDIT</button>
+          <button type="button" class="btn btn-danger btn-sm">DELETE</button>
+        </div>
+        `;
+      
+    })
+  }
+  listOfUsers();
+  i++;
 })
 
 
 
 
-
+// ------ Information text lines under fields ------
 email.addEventListener('keyup', () => {
     validateEmail(email)
   })
