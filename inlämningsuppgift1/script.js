@@ -1,7 +1,7 @@
+let usersListArray = [];
 const regForm = document.querySelector('#regForm');
 const email = document.querySelector('#email');
 const outputDiv = document.querySelector('#listToAdd');
-const usersListArray = [];
 
 var boolean1 = 'false';
 var boolean2 = 'false';
@@ -9,8 +9,7 @@ var boolean3 = 'false';
 
 
 
-// ------ Validations -------
-const validateText = (id) => {
+const validateText = (id) => {                  // ------ Text Validations -------
   let input = document.querySelector(id);
 
   if(input.value === '' || input.value.length < 2) {
@@ -30,7 +29,7 @@ const validateText = (id) => {
   }
 }
 
-const validateEmail = (emailInput) => {
+const validateEmail = (emailInput) => {         // ------ Email Validations -------
   let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   
   if(regEx.test(emailInput.value)) {
@@ -49,8 +48,7 @@ const validateEmail = (emailInput) => {
 }
 
 
-// ------ Information text lines under fields ------
-email.addEventListener('keyup', () => {
+email.addEventListener('keyup', () => {         // ------ Guide text lines under fields ------
     validateEmail(email)
   })
 firstName.addEventListener('keyup', () => {
@@ -62,10 +60,8 @@ lastName.addEventListener('keyup', () => {
 
 
 
-// ------ Creating Data Array for each User ------
-regForm.addEventListener('submit', e => {
+regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
   e.preventDefault();
-  
   
   validateText('#firstName');
   validateText('#lastName');
@@ -79,17 +75,17 @@ regForm.addEventListener('submit', e => {
       email: e.currentTarget.email.value,
     }
     console.log(user);
-    usersListArray.push(user);
+    usersListArray.push(user);                  // ------ Adding element to Array for each User ------
     console.log(usersListArray);
   
-  
-    function listOfUsers() {
+
+    const usersList = () => {
       let i = 0;
       outputDiv.innerHTML = '';
       usersListArray.forEach(user => {
         const userInUse = usersListArray[i];
         outputDiv.innerHTML += `
-        <div id="${listToAdd.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
+        <div id="${userInUse.id}" class="d-flex justify-content-between align-items-center bg-white p-2 mb-2">
         <div>  
         <p class="m-0 h5">${userInUse.firstName} ${userInUse.lastName}</p>
         <p class="m-0">${userInUse.email}</p>
@@ -99,16 +95,22 @@ regForm.addEventListener('submit', e => {
         <button type="button" class="btn btn-danger btn-sm">DELETE</button>
         </div>
         `;
-
         i++;
       })
     }
-    listOfUsers();
+    usersList();
     document.getElementById("regForm").reset();
     boolean1 = 'false';
     boolean2 = 'false';
+
+    outputDiv.addEventListener('click', e => {
+      if(e.target.type === 'button') {
+        console.log('it is a button');
+        //--- below is the - Array.filter - method.
+        usersListArray = usersListArray.filter(user => userInUse.id !== e.target.parentNode.id);
+        usersList();
+      }
+    })
   }
-
 })
-
 
