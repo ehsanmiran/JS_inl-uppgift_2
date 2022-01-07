@@ -3,7 +3,7 @@ let usersListArray = [];
 const outputDiv = document.querySelector('#listToAdd');
 const regForm = document.querySelector('#regForm');
 const email = document.querySelector('#email');
-
+const errorMsg = document.querySelector('#errorMsg');
 
 const usersList = () => {                       // ------ intiate (add new <div>) to the doc ------
   outputDiv.innerHTML = '';
@@ -33,7 +33,6 @@ const validateText = (id) => {                  // ------ Text Validations -----
   else {
     input.classList.remove('is-invalid');
     input.classList.add('is-valid');
-    // boolean1 = 'true';
     if(id === '#firstName') {
       boolean1 = 'true'
     }else{
@@ -59,6 +58,18 @@ const validateEmail = (emailInput) => {         // ------ Email Validations ----
     
   }
 }
+// ------ already registered Email???
+const alreadyRegistered = (emailInput) => {
+  for (let i = 0; i < usersListArray.length; i++) {
+    if (emailInput.value === usersListArray[i].email) {
+      emailInput.classList.add('is-invalid');
+      emailInput.focus();
+      errorMsg.innerHTML = `* This email is already Registered.`;
+      console.log(alreadyRegistered);
+      return true;
+    }
+  }
+}
 
 email.addEventListener('keyup', () => {         // ------ Guide text lines under fields ------
   validateEmail(email)
@@ -73,11 +84,19 @@ lastName.addEventListener('keyup', () => {
 regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
   e.preventDefault();
   
+  if (alreadyRegistered() === true) {
+    return
+  }
+
   validateText('#firstName');
   validateText('#lastName');
   validateEmail(email);
+
   
-  if(boolean1 === 'true' && boolean2 === 'true' && boolean3 === 'true') {
+  if(
+  boolean1 === 'true' &&
+  boolean2 === 'true' &&
+  boolean2 === 'true') {
     const user = {
       id: Date.now().toString(),
       firstName: firstName.value,
