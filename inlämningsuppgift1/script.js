@@ -65,8 +65,9 @@ const alreadyRegistered = (emailInput) => {
       emailInput.classList.add('is-invalid');
       emailInput.focus();
       errorMsg.innerHTML = `* This email is already Registered.`;
-      console.log(alreadyRegistered);
-      return true;
+      console.log('already Registered');
+      // then it's already used
+      break
     }
   }
 }
