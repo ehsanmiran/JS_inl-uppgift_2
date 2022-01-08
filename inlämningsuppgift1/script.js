@@ -1,4 +1,5 @@
 let usersListArray = [];
+let alrRegEmails = [];
 
 const outputDiv = document.querySelector('#listToAdd');
 const regForm = document.querySelector('#regForm');
@@ -48,33 +49,36 @@ const validateEmail = (emailInput) => {         // ------ Email Validations ----
     emailInput.classList.remove('is-invalid');
     emailInput.classList.add('is-valid');
     boolean3 = 'true';
-    
   }
   else {
     emailInput.classList.remove('is-valid');
     emailInput.classList.add('is-invalid');
     emailInput.focus();
     boolean3 = 'false';
-    
   }
-}
-// ------ already registered Email???
-const alreadyRegistered = (emailInput) => {
+  
   for (let i = 0; i < usersListArray.length; i++) {
-    if (emailInput.value === usersListArray[i].email) {
+    if (emailInput.value === alrRegEmails[i]) {
       emailInput.classList.add('is-invalid');
       emailInput.focus();
-      errorMsg.innerHTML = `* This email is already Registered.`;
-      console.log('already Registered');
+      errorMsg.innerHTML = `* "${emailInput.value}" is already Registered.`;
+      fbMsg.innerHTML = '';
       // then it's already used
-      break
+      boolean3 = false;
+      return;
+    }else
+    {
+      boolean3 = 'true';
     }
   }
+
 }
+
 
 email.addEventListener('keyup', () => {         // ------ Guide text lines under fields ------
   validateEmail(email)
 })
+
 firstName.addEventListener('keyup', () => {
   validateText('#firstName')
 })
@@ -85,19 +89,16 @@ lastName.addEventListener('keyup', () => {
 regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
   e.preventDefault();
   
-  if (alreadyRegistered() === true) {
-    return
-  }
-
+  
   validateText('#firstName');
   validateText('#lastName');
   validateEmail(email);
-
+  
   
   if(
   boolean1 === 'true' &&
   boolean2 === 'true' &&
-  boolean2 === 'true') {
+  boolean3 === 'true') {
     const user = {
       id: Date.now().toString(),
       firstName: firstName.value,
@@ -113,6 +114,10 @@ regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
     boolean1 = 'false';
     boolean2 = 'false';
     boolean3 = 'false';
+  }
+  for (let i=0; i < usersListArray.length; i++) {
+    alrRegEmails[i] = usersListArray[i].email;
+    console.log(alrRegEmails);
   }
 })
 
