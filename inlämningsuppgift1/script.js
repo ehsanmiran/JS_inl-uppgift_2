@@ -16,8 +16,8 @@ const usersList = () => {                       // ------ intiate (add new <div>
         <p class="m-0">${user.email}</p>
       </div>
       <div>
-        <button type="button" class="btn btn-info btn-sm px-3">EDIT</button>
-        <button type="button" class="btn btn-danger btn-sm">DELETE</button>
+        <button type="button" id="edit" class="btn btn-info btn-sm px-3">EDIT</button>
+        <button type="button" id="delete" class="btn btn-danger btn-sm">DELETE</button>
     </div>
     `;
   })
@@ -105,7 +105,6 @@ regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
       lastName: lastName.value,
       email: email.value,
     }
-    console.log(user);
     usersListArray.push(user);                  // ------ Adding element to Array for each User ------
     console.log(usersListArray);
     
@@ -123,9 +122,18 @@ regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
 
 outputDiv.addEventListener('click', e => {
   console.log(e.target.parentNode.parentNode.id);
-  if(e.target.type === 'button') {
-
-    usersListArray = usersListArray.filter(user => user.id !== e.target.parentNode.parentNode.id); //--- the (Array.filter) method.
+  console.log(e.target.id);
+  if(e.target.id === 'delete') {
+    //--- the (Array.filter) method.
+    usersListArray = usersListArray.filter(user => user.id !== e.target.parentNode.parentNode.id); 
     usersList();
   }
+  if(e.target.id === 'edit') {
+    
+
+    
+
+
+  }
+
 })
