@@ -129,10 +129,15 @@ outputDiv.addEventListener('click', e => {
     usersList();
   }
   if(e.target.id === 'edit') {
+    const userId = e.target.parentNode.parentNode.id
+
+    const userRef = usersListArray.find(user => user.id === userId)
     
 
-    
+    // firstName.value = userRef.firstName
 
+    userRef.firstName = firstName.value;
+    usersList();
 
   }
 
