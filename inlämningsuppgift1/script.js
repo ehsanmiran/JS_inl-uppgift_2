@@ -5,6 +5,7 @@ const outputDiv = document.querySelector('#listToAdd');
 const regForm = document.querySelector('#regForm');
 const email = document.querySelector('#email');
 const errorMsg = document.querySelector('#errorMsg');
+var accounter = 0;
 
 const usersList = () => {                       // ------ intiate (add new <div>) to the doc ------
   outputDiv.innerHTML = '';
@@ -57,6 +58,9 @@ const validateEmail = (emailInput) => {         // ------ Email Validations ----
     boolean3 = 'false';
   }
   
+  if (accounter !== 0) {
+    return;
+  }
   for (let i = 0; i < usersListArray.length; i++) {
     if (emailInput.value === alrRegEmails[i]) {
       emailInput.classList.add('is-invalid');
@@ -71,7 +75,7 @@ const validateEmail = (emailInput) => {         // ------ Email Validations ----
       boolean3 = 'true';
     }
   }
-
+  accounter = 0;
 }
 
 
@@ -129,14 +133,17 @@ outputDiv.addEventListener('click', e => {
     usersList();
   }
   if(e.target.id === 'edit') {
+    accounter += 1;
+    console.log(accounter);
     const userId = e.target.parentNode.parentNode.id
 
     const userRef = usersListArray.find(user => user.id === userId)
     
+    firstName.value = userRef.firstName
+    lastName.value = userRef.lastName
+    email.value = userRef.email
 
-    // firstName.value = userRef.firstName
-
-    userRef.firstName = firstName.value;
+    // userRef.firstName = firstName.value;
     usersList();
 
   }
