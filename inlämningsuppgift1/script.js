@@ -5,9 +5,10 @@ const outputDiv = document.querySelector('#listToAdd');
 const regForm = document.querySelector('#regForm');
 const email = document.querySelector('#email');
 const errorMsg = document.querySelector('#errorMsg');
-var accounter = 0;
+const actButton =document.querySelector('#actButton');
 
-const usersList = () => {                       // ------ intiate (add new <div>) to the doc ------
+// ------ intiate (add new <div>) to the doc ------
+const usersList = () => {
   outputDiv.innerHTML = '';
   usersListArray.forEach(user => {
     outputDiv.innerHTML += `
@@ -24,7 +25,9 @@ const usersList = () => {                       // ------ intiate (add new <div>
   })
 }
 
-const validateText = (id) => {                  // ------ Text Validations -------
+
+// ------ Text Validations -------
+const validateText = (id) => {
   let input = document.querySelector(id);
   
   if(input.value === '' || input.value.length < 2) {
@@ -43,7 +46,8 @@ const validateText = (id) => {                  // ------ Text Validations -----
   }
 }
 
-const validateEmail = (emailInput) => {         // ------ Email Validations -------
+// ------ Email Validations -------
+const validateEmail = (emailInput) => {
   let regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   
   if(regEx.test(emailInput.value)) {
@@ -58,9 +62,6 @@ const validateEmail = (emailInput) => {         // ------ Email Validations ----
     boolean3 = 'false';
   }
   
-  if (accounter !== 0) {
-    return;
-  }
   for (let i = 0; i < usersListArray.length; i++) {
     if (emailInput.value === alrRegEmails[i]) {
       emailInput.classList.add('is-invalid');
@@ -70,16 +71,16 @@ const validateEmail = (emailInput) => {         // ------ Email Validations ----
       // then it's already used
       boolean3 = false;
       return;
-    }else
-    {
+    }
+    else {
       boolean3 = 'true';
     }
   }
-  accounter = 0;
+
 }
 
-
-email.addEventListener('keyup', () => {         // ------ Guide text lines under fields ------
+// ------ Guide text lines under fields ------
+email.addEventListener('keyup', () => {
   validateEmail(email)
 })
 
@@ -90,14 +91,14 @@ lastName.addEventListener('keyup', () => {
   validateText('#lastName')
 })
 
-regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
+// ------ S U B M I S S I O N ------
+// #################################
+regForm.addEventListener('submit', e => {
   e.preventDefault();
-  
   
   validateText('#firstName');
   validateText('#lastName');
   validateEmail(email);
-  
   
   if(
   boolean1 === 'true' &&
@@ -109,7 +110,8 @@ regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
       lastName: lastName.value,
       email: email.value,
     }
-    usersListArray.push(user);                  // ------ Adding element to Array for each User ------
+    // ------ Adding element to Array for each User ------
+    usersListArray.push(user);
     console.log(usersListArray);
     
     usersList();
@@ -120,32 +122,35 @@ regForm.addEventListener('submit', e => {       // ------ SUBMISSION ------
   }
   for (let i=0; i < usersListArray.length; i++) {
     alrRegEmails[i] = usersListArray[i].email;
-    console.log(alrRegEmails);
   }
 })
 
 outputDiv.addEventListener('click', e => {
-  console.log(e.target.parentNode.parentNode.id);
-  console.log(e.target.id);
+  /* console.log(e.target.parentNode.parentNode.id);
+  console.log(e.target.id); */
   if(e.target.id === 'delete') {
     //--- the (Array.filter) method.
     usersListArray = usersListArray.filter(user => user.id !== e.target.parentNode.parentNode.id); 
     usersList();
   }
   if(e.target.id === 'edit') {
-    accounter += 1;
-    console.log(accounter);
+    actButton.innerHTML = `<button id="save" class="btn btn-st save-btn">SAVE</button>`
     const userId = e.target.parentNode.parentNode.id
-
     const userRef = usersListArray.find(user => user.id === userId)
+    const index = usersListArray.findIndex(user => user.id === userId);
+
+    /* console.log(index);
+    console.log(userRef); */
+    firstName.value = userRef.firstName;
+    lastName.value = userRef.lastName;
+    email.value = userRef.email;
     
-    firstName.value = userRef.firstName
-    lastName.value = userRef.lastName
-    email.value = userRef.email
-
-    // userRef.firstName = firstName.value;
+    userRef.firstName = 'to be edited';
+    userRef.lastName = 'to be edited';
+    userRef.email = 'to be edited';
+    alrRegEmails[index] = '';
+    
     usersList();
-
   }
-
 })
+

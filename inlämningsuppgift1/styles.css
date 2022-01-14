@@ -35,10 +35,13 @@ html {
 .add-btn {
   background-color: #0ebd1d;
 }
+.save-btn {
+  background-color: #0ea9bd;
+}
 .clr-btn {
   background-color: #bd492d;
 }
-.clr-btn:hover,
+.save-btn:hover,
 .add-btn:hover {
   background-color: #fdfdfd;
   color: black;
