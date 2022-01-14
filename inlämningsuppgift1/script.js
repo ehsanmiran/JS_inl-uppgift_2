@@ -134,7 +134,7 @@ outputDiv.addEventListener('click', e => {
     usersList();
   }
   if(e.target.id === 'edit') {
-    actButton.innerHTML = `<button id="save" class="btn btn-st save-btn">SAVE</button>`
+    actButton.innerHTML = `<button id="save" class="btn btn-st save-btn">SAVE</button>`;
     const userId = e.target.parentNode.parentNode.id
     const userRef = usersListArray.find(user => user.id === userId)
     const index = usersListArray.findIndex(user => user.id === userId);
@@ -154,3 +154,11 @@ outputDiv.addEventListener('click', e => {
   }
 })
 
+
+
+
+document.addEventListener("click", function (e) {
+  if (e.target) {
+    console.log (e.target.id);
+  }
+})
