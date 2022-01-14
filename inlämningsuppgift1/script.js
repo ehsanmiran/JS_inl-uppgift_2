@@ -111,7 +111,16 @@ regForm.addEventListener('submit', e => {
       email: email.value,
     }
     // ------ Adding element to Array for each User ------
-    usersListArray.push(user);
+    if(addAction === 'ture') {
+      usersListArray.push(user);
+      console.log('pushed');
+      addAction = 'false';
+    }
+    else {
+      usersListArray.splice(objInd, 1, user)
+      console.log('spliced');
+    }
+
     console.log(usersListArray);
     
     usersList();
@@ -123,6 +132,7 @@ regForm.addEventListener('submit', e => {
   for (let i=0; i < usersListArray.length; i++) {
     alrRegEmails[i] = usersListArray[i].email;
   }
+  actButton.innerHTML = `<button id="add" class="btn btn-st add-btn"  onclick="return adding();">ADD</button>`;
 })
 
 outputDiv.addEventListener('click', e => {
@@ -134,31 +144,30 @@ outputDiv.addEventListener('click', e => {
     usersList();
   }
   if(e.target.id === 'edit') {
-    actButton.innerHTML = `<button id="save" class="btn btn-st save-btn">SAVE</button>`;
+    actButton.innerHTML = `<button id="save" class="btn btn-st save-btn" onclick="return editing();">SAVE</button>`;
     const userId = e.target.parentNode.parentNode.id
     const userRef = usersListArray.find(user => user.id === userId)
     const index = usersListArray.findIndex(user => user.id === userId);
 
-    /* console.log(index);
-    console.log(userRef); */
+    console.log(index);
+    console.log(userRef);
     firstName.value = userRef.firstName;
     lastName.value = userRef.lastName;
     email.value = userRef.email;
     
-    userRef.firstName = 'to be edited';
-    userRef.lastName = 'to be edited';
-    userRef.email = 'to be edited';
+    /* userRef.firstName = 'to be edited';*/
     alrRegEmails[index] = '';
     
-    usersList();
+    // usersList();
+    editing = () => {return objInd = index;}
   }
 })
 
+adding = () => {return addAction = 'ture';}
 
 
-
-document.addEventListener("click", function (e) {
+/* document.addEventListener("click", function (e) {
   if (e.target) {
     console.log (e.target.id);
   }
-})
+}) */
