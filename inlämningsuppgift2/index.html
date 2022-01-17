@@ -9,21 +9,28 @@
 </head>
 <body>
   
-  <div class="container">
-    <div class="top-box">
-      <header>
-        <h1>To Do List</h1>
-      </header>
-      <div class="inputDiv">
-        <input class="unshow" type="text" placeholder="add item">
-        <button>
-          Add
-        </button>
-      </div>
-    </div>
+  <div class="top-box container">
+    <header class="header">
+      <h1>To Do List</h1>
+      <p>By: Ehsan Miran</p>
+    </header>
   </div>
 
+  <form id="theForm" class="form-cont">
+    <div class="inputDiv">
+      <input class="formCtrl" id="input-field" type="text" placeholder="Add an item here...">
+      <button class="btn btn-add">ADD</button>
+    </div>
+  </form>
 
+  <div id="output" class="container output">
+
+    <div class="list-item">
+      <h4>2do title</h4>
+      <button class="btn btn-del">DEL</button>
+    </div>
+
+  </div>
 
 
 
