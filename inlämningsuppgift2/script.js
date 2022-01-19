@@ -27,14 +27,11 @@ const crateListItem = item => {
   card.classList.add('list-item');
 
   let chGroup = document.createElement('label');
-  chGroup.classList.add('che-container');
 
   let chBox = document.createElement('input');
   chBox.type = 'checkbox';
-  chBox.classList.add('ch-box');
   
   let chMark = document.createElement('span');
-  chMark.classList.add('checkmark');
   
   let titleText = document.createElement('h4');
   titleText.classList.add('list-item-txt');
