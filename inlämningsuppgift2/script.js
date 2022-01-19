@@ -16,6 +16,7 @@ fetchTodos ();
 
 
 const showList = () => {
+  output.innerHTML = ''
   todoList.forEach(listItem => {
     crateListItem(listItem)
   })
@@ -42,10 +43,10 @@ const crateListItem = item => {
   bttn.innerText = 'DEL';
 
 
-  bttn.addEventListener('click', () => removeItem(bttn))
+  bttn.addEventListener('click', () => removeItem(item.id))
 
 
-  chBox.append(chMark);
+  chBox.appendChild(chMark);
   chGroup.appendChild(chBox);
   card.append(chGroup, titleText, bttn);
 
@@ -53,6 +54,36 @@ const crateListItem = item => {
   output.appendChild(card);
 }
 
-function removeItem(bttn) {
-  bttn.remove()
+function removeItem(id) {
+  todoList = todoList.filter(item => item.id !== id)
+  showList()
+}
+
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if(input.value !== '') {
+    createNewItem(input.value);
+    input.value = '';
+    input.focus()
+  }
+})
+
+const createNewItem = title => {
+  fetch('https://jsonplaceholder.typicode.com/todos', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    },
+    body: JSON.stringify({
+      title,
+      completed: false
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    data.id = Date.now().toString();
+    todoList.unshift(data);
+    showList()
+  })
 }
