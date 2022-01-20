@@ -14,13 +14,13 @@ const fetchTodos = async () => {
 
 fetchTodos ();
 
-
 const showList = () => {
   output.innerHTML = ''
   todoList.forEach(listItem => {
     crateListItem(listItem)
   })
 }
+
 
 const crateListItem = item => {
 
@@ -31,8 +31,6 @@ const crateListItem = item => {
 
   let chBox = document.createElement('input');
   chBox.type = 'checkbox';
-  
-  let chMark = document.createElement('span');
   
   let titleText = document.createElement('h4');
   titleText.classList.add('list-item-txt');
@@ -45,8 +43,6 @@ const crateListItem = item => {
 
   bttn.addEventListener('click', () => removeItem(item.id))
 
-
-  chBox.appendChild(chMark);
   chGroup.appendChild(chBox);
   card.append(chGroup, titleText, bttn);
 
@@ -57,6 +53,7 @@ const crateListItem = item => {
 function removeItem(id) {
   todoList = todoList.filter(item => item.id !== id)
   showList()
+  console.log(todoList);
 }
 
 
@@ -83,7 +80,9 @@ const createNewItem = title => {
   .then(res => res.json())
   .then(data => {
     data.id = Date.now().toString();
+    data.userId = 1;
     todoList.unshift(data);
     showList()
+    console.log(data);
   })
 }

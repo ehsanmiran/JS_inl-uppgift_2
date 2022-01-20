@@ -81,7 +81,6 @@ html {
   border-radius: 10px;
   margin: 1rem auto;
   padding: 2rem;
-  box-shadow: 0px 5px 5px #00000049;
 }
 
 .list-item {
@@ -93,5 +92,5 @@ html {
 }
 .list-item-txt {
   flex: 5;
-  margin-left: 35px;
+  margin-left: 20px;
 }
