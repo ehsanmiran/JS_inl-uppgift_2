@@ -9,6 +9,7 @@ const fetchTodos = async () => {
   const data = await resp.json()
   todoList = data;
 
+
   showList();
 }
 
@@ -31,6 +32,8 @@ const crateListItem = item => {
 
   let chBox = document.createElement('input');
   chBox.type = 'checkbox';
+  chBox.name = 'chBox';
+  chBox.id = item.id ;
   
   let titleText = document.createElement('h4');
   titleText.classList.add('list-item-txt');
@@ -41,7 +44,11 @@ const crateListItem = item => {
   bttn.innerText = 'DEL';
 
 
-  bttn.addEventListener('click', () => removeItem(item.id))
+  bttn.addEventListener('click', () => {
+    if(document.querySelector('input[type=checkbox][name=chBox][id=item.id]'.checkd = true)) {
+      removeItem(item.id)
+    }
+  })
 
   chGroup.appendChild(chBox);
   card.append(chGroup, titleText, bttn);
@@ -51,9 +58,11 @@ const crateListItem = item => {
 }
 
 function removeItem(id) {
-  todoList = todoList.filter(item => item.id !== id)
-  showList()
-  console.log(todoList);
+  
+    todoList = todoList.filter(item => item.id !== id)
+    showList()
+    console.log(todoList);
+  
 }
 
 
