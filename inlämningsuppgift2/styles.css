@@ -94,3 +94,12 @@ html {
   flex: 5;
   margin-left: 20px;
 }
+
+.visi-btn {
+  background-color: #ffffff;
+  border: 3px solid #ddd6d6;
+  color: #bebcbc;
+  font-weight: 500;
+  cursor: default;
+  box-shadow: inset 0px 6px 5px #ffffff;
+}
