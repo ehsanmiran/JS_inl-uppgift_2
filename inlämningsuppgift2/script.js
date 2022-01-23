@@ -3,14 +3,15 @@ const input = document.querySelector('#input-field');
 const output = document.querySelector('#output');
 
 
+let todoList1 = [];
 let todoList = [];
 
 const fetchTodos = async () => {
   const resp = await fetch('https://jsonplaceholder.typicode.com/todos')
   const data = await resp.json()
-  todoList = data;
+  todoList1 = data;
 
-
+  todoList = todoList1.slice(0, 10);
   showList();
 }
 
@@ -68,7 +69,7 @@ const crateListItem = item => {
 function removeItem(id) {
   todoList = todoList.filter(item => item.id !== id)
   showList()
-  console.log(todoList);
+  // console.log(todoList);
   
 }
 
@@ -99,7 +100,7 @@ const createNewItem = title => {
     data.userId = 1;
     todoList.unshift(data);
     showList()
-    console.log(data);
+    // console.log(data);
   })
 }
 
@@ -107,14 +108,14 @@ const createNewItem = title => {
 // ---- changing the "complete" value depening on the checkbox mark
 output.addEventListener('change', e => {
   if (e.target.checked) {
-    console.log(`checkbox #id ${e.target.id} is checked`);
+    // console.log(`checkbox #id ${e.target.id} is checked`);
     todoList.find(item => item.id == e.target.id).completed = true;
-    console.log(todoList.find(item => item.id == e.target.id))
+    // console.log(todoList.find(item => item.id == e.target.id))
   }
   else {
-    console.log(`checkbox #id ${e.target.id} is unchecked`);
+    // console.log(`checkbox #id ${e.target.id} is unchecked`);
     todoList.find(item => item.id == e.target.id).completed = false;
-    console.log(todoList.find(item => item.id == e.target.id))
+    // console.log(todoList.find(item => item.id == e.target.id))
   }
   showList()
 });
