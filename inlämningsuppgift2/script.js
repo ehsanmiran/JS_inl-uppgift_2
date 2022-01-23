@@ -30,12 +30,16 @@ const crateListItem = item => {
   card.classList.add('list-item');
 
   let chGroup = document.createElement('label');
+  chGroup.classList.add('custom-checkbox');
 
   let chBox = document.createElement('input');
   chBox.type = 'checkbox';
   chBox.name = 'chBox';
   chBox.id = item.id ;
   chBox.checked = item.completed;
+
+  let chMark = document.createElement('span');
+  chMark.classList.add('checkmark');
   
   let titleText = document.createElement('h4');
   titleText.classList.add('list-item-txt');
@@ -55,7 +59,8 @@ const crateListItem = item => {
     }
   })
 
-  chGroup.appendChild(chBox);
+
+  chGroup.append(chBox, chMark);
   card.append(chGroup, titleText, bttn);
   output.appendChild(card);
 }
